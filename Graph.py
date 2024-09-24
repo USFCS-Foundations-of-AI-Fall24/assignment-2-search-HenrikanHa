@@ -26,6 +26,7 @@ class Graph :
         self.g = {}
 
     def add_node(self, index):
+        if index not in self.g:
             self.g[index] = []
 
     def add_edge(self, e):
