@@ -131,7 +131,7 @@ def battery_goal(state) :
     return state.loc == "battery"
 ## add your goals here.
 
-def move_to_sample(state) :
+def mission_move_to_sample(state) :
     return (state.loc == "sample"
             and state.holding_tool == True
             and state.holding_sample == False
@@ -195,19 +195,19 @@ def main():
     print("Part 6")
     print("Breadth first search")
     s = RoverState()
-    result_1 = breadth_first_search(s, action_list, move_to_sample)
+    result_1 = breadth_first_search(s, action_list, mission_move_to_sample)
     result_2 = breadth_first_search(result_1[0], action_list, remove_sample)
     result_3 = breadth_first_search(result_2[0], action_list, mission_complete)
 
     print("Depth first search")
     s1 = RoverState()
-    result_1 = depth_first_search(s1, action_list, move_to_sample)
+    result_1 = depth_first_search(s1, action_list, mission_move_to_sample)
     result_2 = depth_first_search(result_1[0], action_list, remove_sample)
     result_3 = depth_first_search(result_2[0], action_list, mission_complete)
 
     print("Depth limit search limit=10")
     s2 = RoverState()
-    result_1 = depth_first_search(s2, action_list, move_to_sample, 10)
+    result_1 = depth_first_search(s2, action_list, mission_move_to_sample, 10)
     result_2 = depth_first_search(result_1[0], action_list, remove_sample, 10)
     result_3 = depth_first_search(result_2[0], action_list, mission_complete, 10)
 
