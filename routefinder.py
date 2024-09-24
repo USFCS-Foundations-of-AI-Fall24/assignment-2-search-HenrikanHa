@@ -80,13 +80,10 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True):
                     if neighbor_state in closed_list and closed_list[neighbor_state] is True:
                         continue
                     # has not fully explored, can be or not be in the queue
-                    if neighbor_state in closed_list and closed_list[neighbor_state] is False:
-                        search_queue.put(neighbor_state)
-                        print(f"Enqueue: {neighbor_state.location} (f={neighbor_state.g}+{neighbor_state.h}={neighbor_state.f})")
                     if neighbor_state not in closed_list:
                         closed_list[neighbor_state] = False
-                        search_queue.put(neighbor_state)
-                        print(f"Enqueue: {neighbor_state.location} (f={neighbor_state.g}+{neighbor_state.h}={neighbor_state.f})")
+                    search_queue.put(neighbor_state)
+                    print(f"Enqueue: {neighbor_state.location} (f={neighbor_state.g}+{neighbor_state.h}={neighbor_state.f})")
                 else:
                     search_queue.put(neighbor_state)
                     print(f"Enqueue: {neighbor_state.location} (f={neighbor_state.g}+{neighbor_state.h}={neighbor_state.f})")
@@ -121,13 +118,15 @@ def read_mars_graph(filename):
                 mars_graph.add_edge(Edge(start_node, neighbor_node, 1))
     return mars_graph
 
-
-if __name__ == "__main__":
+def main():
     # Run USC algorithm
     start_state = map_state("8,8")
     start_state.mars_graph = read_mars_graph("MarsMap.txt")
-    path = a_star(start_state, h1, map_state.is_goal)
+    a_star(start_state, h1, map_state.is_goal)
     # Run A* algorithm
     start_state = map_state("8,8")
     start_state.mars_graph = read_mars_graph("MarsMap.txt")
-    path = a_star(start_state, sld, map_state.is_goal)
+    a_star(start_state, sld, map_state.is_goal)
+
+if __name__ == "__main__":
+    main()
